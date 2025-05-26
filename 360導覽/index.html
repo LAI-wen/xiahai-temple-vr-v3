@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>城隍廟 VR 導覽</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene cursor="rayOrigin: mouse" vr-mode-ui="enabled: true">
+      <a-assets>
+        <!-- 圖片資源 -->
+        <img id="img1" src="1.jpg" />
+        <img id="img2" src="2.jpg" />
+        <img id="img3" src="3.jpg" />
+        <img id="img4" src="4.jpg" />
+        <img id="img5" src="5.jpg" />
+        <img id="img6" src="6.jpg" />
+        <img id="img7" src="7.jpg" />
+        <img id="img8" src="8.jpg" />
+        <img id="img9" src="9.jpg" />
+        <img id="img10" src="10.jpg" />
+        <!-- 說明圖片 -->
+        <img id="desc2" src="2.1.png" />
+        <img id="desc3" src="3.1.png" />
+        <img id="desc4" src="4.1.png" />
+        <img id="desc6" src="6.1.png" />
+        <img id="desc7" src="7.1.png" />
+        <img id="desc8" src="8.1.png" />
+        <img id="desc9" src="9.1.png" />
+        <img id="desc10" src="10.1.png" />
+
+        <!-- 影片資源 -->
+        <video
+          id="goldPaperShop"
+          src="https://res.cloudinary.com/danpjgsjy/video/upload/maggbaaoqsylsxlatii9.mp4"
+        ></video>
+        <video
+          id="incenseBurningPlace"
+          src="https://res.cloudinary.com/danpjgsjy/video/upload/a1ndf7ued8vpu4k53hca.mp4"
+        ></video>
+        <video
+          id="mainHall"
+          src="https://res.cloudinary.com/danpjgsjy/video/upload/pizr4ud20a0foqxwewdd.mp4"
+        ></video>
+        <video
+          id="yiyonggong"
+          src="https://res.cloudinary.com/danpjgsjy/video/upload/cgmfmwntwsyxqvmmvw3n.mp4"
+        ></video>
+        <video
+          id="guanyinBuddha"
+          src="https://res.cloudinary.com/danpjgsjy/video/upload/abn0zemo5k2n2v4h1mba.mp4"
+        ></video>
+        <video
+          id="ladyOfTheCityGod"
+          src="https://res.cloudinary.com/danpjgsjy/video/upload/hf8ecgonv8utwlocs6nv.mp4"
+        ></video>
+        <video
+          id="tianGongLu"
+          src="https://res.cloudinary.com/danpjgsjy/video/upload/b4cuduxhdoldxzxqfwxb.mp4"
+        ></video>
+      </a-assets>
+
+      <a-sky id="sky" src="#img1"></a-sky>
+
+      <!-- 熱點與影片容器 -->
+      <a-entity id="hotspots"></a-entity>
+
+      <!-- 攝影機 -->
+      <a-entity
+        camera
+        look-controls
+        position="0 1.6 0"
+        raycaster="objects: .clickable"
+      >
+        <a-cursor></a-cursor>
+      </a-entity>
+
+      <script>
+        const scenes = {
+          1: {
+            img: "#img1",
+            desc: null,
+            video: null,
+            positions: {
+              video: "0 2 -3",
+              videoButton: "0 1.5 -2.8",
+              descImage: "0 1.5 -3",
+              descButton: "-0.8 1.5 -2.8",
+              closeButton: "1.3 2.3 -2.99",
+            },
+            links: [
+              { to: "2", pos: "3.905 1.5 -4", rot: "0 300 0" },
+              { to: "10", pos: "2.547 0.926 0.412", rot: "0 240 0" },
+            ],
+          },
+          2: {
+            img: "#img2",
+            desc: "#desc2",
+            video: "#tianGongLu",
+            positions: {},
+            links: [
+              { to: "1", pos: "1.100 1.010 4.910", rot: "0 180 0" },
+              { to: "10", pos: "4.680 0.950 3.310", rot: "0 240 0" },
+              { to: "3", pos: "4.814 0.980 -2.270", rot: "0 300 0" },
+            ],
+          },
+          3: {
+            img: "#img3",
+            desc: "#desc3",
+            video: null,
+            positions: {},
+            links: [
+              { to: "2", pos: "4.000 1.5 0", rot: "0 270 0" },
+              { to: "4", pos: "-5.670 1.290 0.500", rot: "0 90 0" },
+            ],
+          },
+          4: {
+            img: "#img4",
+            desc: "#desc4",
+            video: "#mainHall",
+            positions: {},
+            links: [
+              { to: "3", pos: "4.000 1.5 0", rot: "0 270 0" },
+              { to: "5", pos: "-2.000 1.5 -3" },
+            ],
+          },
+          5: {
+            img: "#img5",
+            desc: null,
+            video: null,
+            positions: {},
+            links: [
+              { to: "4", pos: "4 1.5 -5.900", rot: "0 310 0" },
+              { to: "6", pos: "-3.590 0.960 -0.250", rot: "0 90 0" },
+              { to: "7", pos: "-0.980 0.390 4.160", rot: "0 160 0" },
+              { to: "8", pos: "-4 0.5 -4", rot: "0 60 0" },
+              { to: "9", pos: "0.190 0.980 -4.730", rot: "0 -10 0" },
+            ],
+          },
+          6: {
+            img: "#img6",
+            desc: "#desc6",
+            video: "#ladyOfTheCityGod",
+            positions: {},
+            links: [{ to: "5", pos: "2.000 1.5 -2.580", rot: "0 -40 0" }],
+          },
+          7: {
+            img: "#img7",
+            desc: "#desc7",
+            video: "#yiyonggong",
+            positions: {},
+            links: [{ to: "5", pos: "3.000 1.080 -0.740", rot: "0 270 0" }],
+          },
+          8: {
+            img: "#img8",
+            video: "#guanyinBuddha",
+            desc: "#desc8",
+            positions: {},
+            links: [
+              { to: "5", pos: "4.000 1.5 2.000", rot: "0 250 0" },
+              { to: "9", pos: "4.940 1.5 -3.680", rot: "0 -40 0" },
+            ],
+          },
+          9: {
+            img: "#img9",
+            desc: "#desc9",
+            video: "#goldPaperShop",
+            positions: {},
+            links: [
+              { to: "5", pos: "-4.560 1.5 -4", rot: "0 30 0" },
+              { to: "8", pos: "-2.629 1.5 -4" },
+              { to: "10", pos: "5.000 1.500 2.500", rot: "0 -110 0" },
+            ],
+          },
+          10: {
+            img: "#img10",
+            desc: "#desc10",
+            video: "#incenseBurningPlace",
+            positions: {},
+            links: [
+              { to: "1", pos: "4.368 1.5 -4", rot: "0 310 0" },
+              { to: "2", pos: "2.960 1.5 2.032", rot: "0 240 0" },
+              { to: "9", pos: "-1.947 1.5 2.932", rot: "0 140.000 0" },
+            ],
+          },
+        };
+
+        function loadScene(id) {
+          const scene = scenes[id];
+          document.querySelector("#sky").setAttribute("src", scene.img);
+
+          const hotspots = document.querySelector("#hotspots");
+          hotspots.innerHTML = "";
+
+          scene.links.forEach((link) => {
+            let plane = document.createElement("a-plane");
+            plane.setAttribute("class", "clickable");
+            plane.setAttribute("position", link.pos);
+            if (link.rot) {
+              plane.setAttribute("rotation", link.rot);
+            }
+            plane.setAttribute("width", 1.2);
+            plane.setAttribute("height", 0.5);
+            plane.setAttribute("color", "#EF2D5E");
+            plane.addEventListener("click", () => loadScene(link.to));
+            let text = document.createElement("a-text");
+            text.setAttribute("value", "前往" + link.to);
+            text.setAttribute("align", "center");
+            text.setAttribute("position", "0 0 0.1");
+            plane.appendChild(text);
+            hotspots.appendChild(plane);
+          });
+
+          if (scene.video) {
+            let video = document.createElement("a-video");
+            video.setAttribute("src", scene.video);
+            video.setAttribute("position", scene.positions.video || "0 2 -3.1");
+            video.setAttribute("width", 3.2);
+            video.setAttribute("height", 1.8);
+            hotspots.appendChild(video);
+
+            let toggleButton = document.createElement("a-image");
+            toggleButton.setAttribute(
+              "src",
+              "https://cdn-icons-png.flaticon.com/512/10257/10257610.png"
+            );
+            toggleButton.setAttribute(
+              "position",
+              scene.positions.videoButton || "0 0 -2.8"
+            );
+            toggleButton.setAttribute("width", "0.5");
+            toggleButton.setAttribute("height", "0.5");
+            toggleButton.setAttribute("class", "clickable");
+
+            let isPlaying = false;
+
+            toggleButton.addEventListener("click", () => {
+              const videoEl = document.querySelector(scene.video);
+              if (!isPlaying) {
+                videoEl.play();
+                toggleButton.setAttribute(
+                  "src",
+                  "https://cdn-icons-png.flaticon.com/512/10346/10346974.png"
+                );
+                isPlaying = true;
+              } else {
+                videoEl.pause();
+                toggleButton.setAttribute(
+                  "src",
+                  "https://cdn-icons-png.flaticon.com/512/10257/10257610.png"
+                );
+                isPlaying = false;
+              }
+            });
+
+            hotspots.appendChild(toggleButton);
+          }
+          if (scene.desc) {
+            let infoButton = document.createElement("a-image");
+            infoButton.setAttribute(
+              "src",
+              "https://cdn-icons-png.flaticon.com/512/656/656794.png"
+            );
+            infoButton.setAttribute(
+              "position",
+              scene.positions.descButton || "-0.8 0 -2.8"
+            );
+            infoButton.setAttribute("width", "0.5");
+            infoButton.setAttribute("height", "0.5");
+            infoButton.setAttribute("class", "clickable");
+
+            let descImage = document.createElement("a-image");
+            descImage.setAttribute("src", scene.desc);
+            descImage.setAttribute(
+              "position",
+              scene.positions.descImage || "0 2 -3"
+            );
+            descImage.setAttribute("width", "3.4");
+            descImage.setAttribute("height", "3.6");
+            descImage.setAttribute("visible", "false");
+
+            let closeButton = document.createElement("a-image");
+            closeButton.setAttribute(
+              "src",
+              "https://cdn-icons-png.flaticon.com/512/1828/1828778.png"
+            );
+            closeButton.setAttribute(
+              "position",
+              scene.positions.closeButton || "1.3 3.5 -2.99"
+            );
+            closeButton.setAttribute("width", "0.3");
+            closeButton.setAttribute("height", "0.3");
+            closeButton.setAttribute("class", "clickable");
+            closeButton.setAttribute("visible", "false");
+
+            infoButton.addEventListener("click", () => {
+              const currentVisible =
+                descImage.getAttribute("visible") === "true";
+              descImage.setAttribute("visible", !currentVisible);
+              closeButton.setAttribute("visible", !currentVisible);
+            });
+
+            closeButton.addEventListener("click", () => {
+              descImage.setAttribute("visible", "false");
+              closeButton.setAttribute("visible", "false");
+            });
+
+            hotspots.appendChild(infoButton);
+            hotspots.appendChild(descImage);
+            hotspots.appendChild(closeButton);
+          }
+        }
+
+        loadScene("1");
+      </script>
+    </a-scene>
+  </body>
+</html>
