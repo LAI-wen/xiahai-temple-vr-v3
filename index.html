@@ -6,7 +6,7 @@
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene cursor="rayOrigin: mouse">
+    <a-scene cursor="rayOrigin: mouse" vr-mode-ui="enabled: true">
       <a-assets>
         <!-- 圖片資源 -->
         <img id="img1" src="1.jpg" />
@@ -72,7 +72,7 @@
         position="0 1.6 0"
         raycaster="objects: .clickable"
       >
-        <a-cursor></a-cursor>
+        <a-entity cursor="fuse: true; fuseTimeout: 1500"></a-entity>
       </a-entity>
 
       <script>
@@ -121,7 +121,7 @@
             positions: {},
             links: [
               { to: "3", pos: "4.000 1.5 0", rot: "0 270 0" },
-              { to: "5", pos: "-2.000 1.5 -4" },
+              { to: "5", pos: "-2.000 1.5 -3" },
             ],
           },
           5: {
